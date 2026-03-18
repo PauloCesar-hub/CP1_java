@@ -1,386 +1,178 @@
-# ERS — Employee Resource System
+# 🚀 ERS — Employee Resource System
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Java-ED8B00?style=for-the-badge&logo=java&logoColor=white"/>
+  <img src="https://img.shields.io/badge/POO-Object%20Oriented-blue?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Status-Em%20Desenvolvimento-yellow?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/Build-Manual-lightgrey?style=for-the-badge"/>
+  <img src="https://img.shields.io/badge/License-Academic-green?style=for-the-badge"/>
+</p>
+
+---
 
 ## 📌 Visão Geral
 
-O **ERS (Employee Resource System)** é um sistema desenvolvido em **Java** que simula o núcleo de um módulo corporativo responsável pela **gestão de colaboradores e recursos internos** de uma empresa.
+O **ERS (Employee Resource System)** é um sistema desenvolvido em **Java** que simula o núcleo de um módulo corporativo responsável pela **gestão de colaboradores e recursos internos**.
 
-Em empresas reais, sistemas desse tipo são utilizados por diversos departamentos, como:
+Projetos como este são utilizados em empresas reais por áreas como:
 
-- Recursos Humanos (RH)
-- Financeiro
-- Facilities
-- Segurança
-- Compras
-- Operações
+- Recursos Humanos (RH)  
+- Financeiro  
+- Facilities  
+- Segurança  
+- Compras  
+- Operações  
 
-O objetivo deste projeto é implementar o **núcleo de domínio** desse sistema, permitindo controlar:
-
-- cadastro de colaboradores
-- cadastro de recursos corporativos
-- alocação de equipamentos para colaboradores
-- devolução de recursos
-- rastreamento de histórico de uso
-
-O sistema foi desenvolvido utilizando **apenas conceitos fundamentais da linguagem Java**, **sem uso de frameworks ou banco de dados**.
+O foco do projeto é a **modelagem de domínio** utilizando apenas **Java puro (sem frameworks ou banco de dados)**.
 
 ---
 
 ## 🎯 Objetivos do Projeto
 
-Este projeto implementa as funcionalidades iniciais do **ERS**, permitindo:
+O sistema permite:
 
-- registrar colaboradores da empresa
-- registrar recursos corporativos
-- alocar recursos para colaboradores
-- devolver recursos
-- consultar dados do sistema
-
-A implementação utiliza apenas:
-
-- Classes
-- Objetos
-- Atributos
-- Métodos
-- Tipos primitivos
-- Estruturas básicas da linguagem Java
+- ✅ Cadastro de colaboradores  
+- ✅ Cadastro de recursos corporativos  
+- ✅ Alocação de equipamentos  
+- ✅ Devolução de recursos  
+- ✅ Consulta de dados  
+- ✅ Controle de custo por colaborador  
 
 ---
 
-## 🧩 Estrutura do Sistema
+## 🧩 Funcionalidades
 
-O sistema é composto pelas seguintes classes principais:
+### 👤 Colaboradores
+- Cadastro e gerenciamento  
+- Promoção (cargo e salário)  
+- Controle de status  
+
+### 💻 Recursos
+- Cadastro de ativos  
+- Controle de disponibilidade  
+- Validação de alto valor  
+
+### 🔄 Alocações
+- Associação colaborador ↔ recurso  
+- Devolução de recursos  
+- Histórico de uso  
+
+### ⚙️ Sistema Interativo
+- Menu via console  
+- Adição e remoção de dados  
+- Busca por índice  
+- Listagem completa  
+
+---
+
+## ⚠️ Tratamento de Erros
+
+O sistema implementa tratamento robusto de exceções:
+
+- `InputMismatchException` → entrada inválida  
+- `IndexOutOfBoundsException` → índice inválido  
+- `IllegalArgumentException` → dados incorretos  
+- `IllegalStateException` → operações inválidas  
+
+💡 Simula comportamento real de sistemas corporativos.
+
+---
+
+## 🏗 Estrutura do Sistema
 
 ### 👤 Colaborador
-
-Representa um funcionário da empresa.
-
-**Atributos:**
-
-- `id` — identificador único
-- `nome` — nome do colaborador
-- `cargo` — cargo ocupado
-- `salario` — salário atual
-- `ativo` — indica se o colaborador está ativo
-- `dataDeAdmissao` — data de entrada na empresa
-
-**Regra de negócio:**
-
-Todo colaborador recém-admitido inicia automaticamente com:
-
 ```java
-ativo = true;
+String nome;
+String cargo;
+double salario;
+boolean ativo;
 
-Método de negócio:
+Recurso
+String nomeDoRecurso;
+String categoria;
+boolean disponivel;
+double valorEstimado;
 
-public void promover(String novoCargo, double novoSalario)
-
-Permite atualizar o cargo e o salário de um colaborador quando ocorre uma promoção.
-
-💻 Recurso
-
-Representa um recurso interno da empresa.
-
-Exemplos de recursos:
-
-notebooks
-
-celulares
-
-cadeiras
-
-monitores
-
-licenças de software
-
-crachás
-
-Atributos:
-
-id
-
-nomeDoRecurso
-
-categoria
-
-disponivel
-
-valorEstimado
-
-Regra de negócio:
-
-Recursos com valor estimado superior a 5000 não podem ser alocados automaticamente, pois exigem autorização especial.
-
-Método de verificação:
-
-public boolean podeSerAlocado() {
-    return disponivel && valorEstimado <= 5000;
-}
-
-Esse método garante que apenas recursos disponíveis e dentro do limite permitido possam ser alocados automaticamente.
-
-📦 Alocacao
-
-Representa a relação entre um colaborador e um recurso alocado.
-
-Atributos:
-
-colaboradorId
-
-recursoId
-
-data
-
-observacao
-
-Essa classe registra quando um recurso foi associado a um colaborador.
+Recurso
+String nomeDoRecurso;
+String categoria;
+boolean disponivel;
+double valorEstimado;
 
 🏢 SistemaERS
 
-Classe responsável por controlar o funcionamento geral do sistema.
+Gerencia listas (ArrayList)
 
-Ela mantém três coleções principais:
+Aplica regras de negócio
 
-lista de colaboradores
+Controla operações do sistema
 
-lista de recursos
+📊 Regras de Negócio
 
-lista de alocações
+✔️ Colaborador inicia ativo
 
-Principais funcionalidades:
+✔️ Recursos devem estar disponíveis
 
-cadastrar colaboradores
+✔️ Recursos acima de R$5000 exigem autorização
 
-cadastrar recursos
+✔️ Validação de dados
 
-listar colaboradores
+✔️ Proteção contra listas vazias
 
-listar recursos
+💡 Diferenciais
 
-buscar colaboradores
+✔️ Arquitetura orientada a domínio
 
-buscar recursos
+✔️ Uso de listas como persistência
 
-alocar recursos
+✔️ Tratamento completo de exceções
 
-devolver recursos
+✔️ Simulação de sistema corporativo real
 
-calcular custos
+✔️ Menu interativo no console
 
-⚙️ Regras de Negócio Implementadas
+🧪 Como Executar
+# Compile
+javac Main.java
 
-O sistema aplica algumas regras comuns em ambientes corporativos.
+# Execute
+java Main
 
-1. Colaborador inicia ativo
+Ou execute diretamente pelo IntelliJ IDEA.
 
-Quando um colaborador é criado, ele automaticamente começa como ativo no sistema.
-
-Isso representa o processo de onboarding corporativo.
-
-2. Recursos só podem ser alocados se estiverem disponíveis
-
-Antes de realizar uma alocação, o sistema verifica:
-
-recurso.disponivel == true
-
-Caso contrário, a alocação é bloqueada.
-
-3. Recursos de alto valor precisam de autorização
-
-Equipamentos corporativos com valor acima de 5000 são considerados ativos de alto valor.
-
-Nesse caso, o sistema exibe uma mensagem informando que o recurso exige autorização especial.
-
-Essa regra simula políticas reais de governança de ativos.
-
-🔍 Contexto Empresarial
-
-Empresas reais possuem processos rigorosos para controle de ativos corporativos.
-
-Este projeto se inspirou em práticas comuns utilizadas em organizações.
-
-Inventário de ativos
-
-Empresas utilizam sistemas de Asset Management para controlar:
-
-notebooks
-
-celulares
-
-monitores
-
-licenças de software
-
-equipamentos de escritório
-
-Esses sistemas permitem rastrear:
-
-quem está usando o equipamento
-
-quando foi entregue
-
-quando foi devolvido
-
-estado do recurso
-
-Controle de equipamentos
-
-Departamentos de Facilities e TI mantêm controle de equipamentos para evitar:
-
-perda de ativos
-
-uso indevido
-
-alocação duplicada
-
-problemas de auditoria
-
-Por isso, sistemas corporativos sempre verificam:
-
-disponibilidade do recurso
-
-valor do ativo
-
-histórico de uso
-
-Governança de recursos
-
-Em empresas grandes, equipamentos caros geralmente exigem:
-
-aprovação de gestor
-
-autorização financeira
-
-registro formal de entrega
-
-A regra de bloqueio de alocação acima de 5000 simula esse tipo de política corporativa.
-
-Ciclo de vida do colaborador
-
-Empresas tratam o colaborador em diferentes etapas:
-
-onboarding (entrada na empresa)
-
-movimentações internas
-
-promoções
-
-desligamento
-
-O método promover() representa uma dessas etapas do ciclo de vida.
-
-🚀 Inovação Implementada
-
-Como funcionalidade adicional, foi implementado um recurso de análise de custo de equipamentos por colaborador.
-
-Cálculo de custo total de recursos
-
-O sistema permite calcular o valor total dos equipamentos associados a um colaborador.
-
-Exemplo:
-
-Notebook: 4000
-Monitor: 1200
-Licença de software: 800
-
-Total: 6000
-
-Esse tipo de análise é comum em empresas para:
-
-gestão de custos de TI
-
-controle de orçamento
-
-auditoria de ativos
-
-planejamento de compras
-
-Histórico de movimentação de recursos
-
-Outra inovação foi a criação de um histórico de eventos dentro da classe Recurso, permitindo registrar eventos como:
-
-criação do recurso
-
-alocação
-
-devolução
-
-manutenção
-
-Esse tipo de histórico é utilizado em sistemas reais para auditoria e rastreabilidade.
-
-🧪 Execução do Projeto
-
-Para executar o sistema:
-
-Abra o projeto no IntelliJ IDEA
-
-Compile o projeto
-
-Execute a classe:
-
-Main.java
-
-A execução demonstrará:
-
-cadastro de colaboradores
-
-cadastro de recursos
-
-alocação de recursos
-
-devolução
-
-exibição de dados do sistema
-
-🛠 Tecnologias Utilizadas
+🛠 Tecnologias
 
 Java
 
 IntelliJ IDEA
 
-Programação Orientada a Objetos (POO)
+Programação Orientada a Objetos
 
-Sem uso de:
+🚫 Sem frameworks ou banco de dados
 
-frameworks
+📚 Conceitos Aplicados
 
-banco de dados
-
-bibliotecas externas
-
-📚 Conceitos de Programação Utilizados
-
-Durante o desenvolvimento foram aplicados conceitos fundamentais de Java:
-
-Classes e objetos
+POO (Programação Orientada a Objetos)
 
 Encapsulamento
 
-Métodos de negócio
-
-Listas (ArrayList)
-
-Manipulação de objetos
-
-Estruturação de domínio
-
 Regras de negócio
 
-📈 Possíveis Evoluções do Sistema
+Estruturas de dados (ArrayList)
 
-Este sistema pode evoluir para incluir:
+Tratamento de exceções (try/catch)
 
-banco de dados
+📈 Próximos Passos
 
-autenticação de usuários
+API REST com Spring Boot
 
-autorização para alocação de recursos caros
+Banco de dados (PostgreSQL)
 
-relatórios de inventário
+Interface Web
 
-API REST
+Sistema de autenticação
 
-interface web
+Relatórios
 
 👨‍💻 Autores
 Nome	RM
